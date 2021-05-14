@@ -57,8 +57,8 @@ If the target amount becomes negative, or we run out of coins (the coin set beco
 we return `0`, because this path could not generate exact change.  
 
 If you look at the recursion tree of the problem below, it is obvious that it generates 
-distinct combinations of change. For example, in the recursion tree below it generates 
-`{3,1}, {2,1,1}, {2,2}` are the same.
+distinct combinations of change `{3,1}, {2,1,1}, {2,2}` (backtrack from all leaf nodes 
+where we see `f(0)` and pick all numbers shown on edges).
 
 ## Recursion Tree 
 
@@ -82,3 +82,8 @@ distinct combinations of change. For example, in the recursion tree below it gen
                                      f(0)  f(1,{})                  f(2,{})    f(1,{1})
                                                                                 /     \ 1
                                                                            f(1,{})    f(0)
+
+
+## Bibliography 
+ - https://www.techiedelight.com/coin-change-problem-find-total-number-ways-get-denomination-coins/
+ - 

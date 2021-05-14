@@ -1,5 +1,8 @@
 package dp;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * Given a value N, if we want to make change for N cents, and we have infinite supply of each of
  * S = { S1, S2, .. , Sm} valued coins, how many ways can we make the change? The order of coins doesn't matter.
@@ -17,7 +20,7 @@ public class CoinChangeProblem {
      * @return The number of ways in which change can be generated.
      */
     public int coinChange(int n, int[] coins) {
-        return doChange(n, coins.length-1, coins);
+        return doChange(n, coins.length-1, coins, new HashMap<>() );
     }
     
     /*
@@ -25,17 +28,22 @@ public class CoinChangeProblem {
      * i: array max index to include in solution
      * coins: array of coin denominations
      */
-    private int doChange(int n, int i, int[] coins) {
+    private int doChange(int n, int i, int[] coins, Map<String, Integer> memo) {
         // termination condition
         if(n==0) { return 1; } // we found a solution
         if(n<0 || i<0) { return 0; } // can't make change or we ran out of denominations
         
-        // we included a denomination
-        int include = doChange(n-coins[i], i, coins);
-        // we exclude a denomination
-        int exclude = doChange(n, i-1, coins );
+        String key = n + "," + i;
+        if( !memo.containsKey(key) ) {
+            // we included a denomination
+            int include = doChange( n - coins[i], i, coins, memo );
+            // we exclude a denomination
+            int exclude = doChange( n, i - 1, coins, memo );
+            
+            memo.put(key, include + exclude);
+        }
         
-        return include + exclude;
+        return memo.get( key );
     }
     
 }
