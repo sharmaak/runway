@@ -16,14 +16,26 @@ public class CoinChangeProblem {
      * @param coins Integer array containing coin denominations.
      * @return The number of ways in which change can be generated.
      */
-    public int doChange(int n, int[] coins) {
-        if( n == 0 ) {
-            return 1; // terminal condition. We have reached exact change with the selected coins.
-        } else if (n < 0 ) {
-            return 0; // the selected coin variation can not provide change.
-        }
-        
-
-        return -1;
+    public int coinChange(int n, int[] coins) {
+        return doChange(n, coins.length-1, coins);
     }
+    
+    /*
+     * n: the amount
+     * i: array max index to include in solution
+     * coins: array of coin denominations
+     */
+    private int doChange(int n, int i, int[] coins) {
+        // termination condition
+        if(n==0) { return 1; } // we found a solution
+        if(n<0 || i<0) { return 0; } // can't make change or we ran out of denominations
+        
+        // we included a denomination
+        int include = doChange(n-coins[i], i, coins);
+        // we exclude a denomination
+        int exclude = doChange(n, i-1, coins );
+        
+        return include + exclude;
+    }
+    
 }
