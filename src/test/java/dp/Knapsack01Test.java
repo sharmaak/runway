@@ -38,7 +38,7 @@ public class Knapsack01Test {
         int[] values =  {1, 5, 8, 9,15,22,30,12,20,40 };
         int[] weights = {5,10,15,20,25,30,35,40,45,50};
         int knapsackCapacity = 100;
-        //assertEquals(220, subject.calculateMaxValue( values, weights, knapsackCapacity ));
-        System.out.println(subject.calculateMaxValue( values, weights, knapsackCapacity ));
+        assertEquals(78, subject.calculateMaxValue( values, weights, knapsackCapacity ));
+        //System.out.println(subject.calculateMaxValue( values, weights, knapsackCapacity ));
     }
 }
